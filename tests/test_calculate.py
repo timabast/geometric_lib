@@ -1,4 +1,12 @@
-from geometric_lib import circle, square
+from geometric_lib.circle import (
+    area as circle_area,
+    perimeter as circle_perimeter,
+)
+from geometric_lib.square import (
+    area as square_area,
+    perimeter as square_perimeter,
+)
+
 
 figs = ['circle', 'square']
 funcs = ['perimeter', 'area']
@@ -6,25 +14,24 @@ sizes = {
     'perimeter-circle': 1,
     'area-circle': 1,
     'perimeter-square': 1,
-    'area-square': 1,
+    'area-square': 1
 }
 
 
 def calc(fig, func, size):
-    """Calculate area or perimeter for a given figure and size."""
     assert fig in figs, f"Invalid figure: {fig}. Available: {figs}"
     assert func in funcs, f"Invalid function: {func}. Available: {funcs}"
 
     if fig == "circle":
         if func == "area":
-            result = circle.area(*size)
+            result = circle_area(*size)
         elif func == "perimeter":
-            result = circle.perimeter(*size)
+            result = circle_perimeter(*size)
     elif fig == "square":
         if func == "area":
-            result = square.area(*size)
+            result = square_area(*size)
         elif func == "perimeter":
-            result = square.perimeter(*size)
+            result = square_perimeter(*size)
 
     print(f'{func} of {fig} is {result}')
     return result
@@ -43,10 +50,16 @@ if __name__ == "__main__":
 
     while len(size) != sizes.get(f"{func}-{fig}", 1):
         try:
-            size = list(map(float, input(
-                "Input figure sizes separated by space, "
-                "1 for circle and square:\n"
-            ).split()))
+            size = list(
+                map(
+                    float,
+                    input(
+                        "Input figure sizes separated by space "
+                        "(e.g., radius for circle or side for square):\n"
+                    ).split()
+                )
+            )
+
         except ValueError:
             print("Invalid input. Please enter numeric values.")
 
